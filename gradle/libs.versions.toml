@@ -1,8 +1,8 @@
 [versions]
 # Build / Gradle
-agp = "9.0.1"
-kotlin = "2.3.0"
-ksp = "2.3.6"
+agp = "9.4.1"
+kotlin = "2.4.21"
+ksp = "2.3.9"
 androidTools = "32.2.0"
 detekt = "1.23.8"
 
@@ -28,7 +28,7 @@ kotlinxCoroutines = "1.10.2"
 serialization = "1.11.0"
 
 # DI
-hilt = "2.59.2"
+hilt = "2.60.1"
 
 # Database
 room = "2.8.4"
@@ -44,9 +44,11 @@ datastorePreferences = "1.2.1"
 material = "1.13.0"
 
 # Testing
+leakcanary = "2.14"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
+androidxTestRules = "1.7.0"
 
 # Other
 jakartaInjectApi = "2.0.1"
@@ -122,9 +124,13 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+leakcanary-android = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanary" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 # Other
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakartaInjectApi" }
+pearwhit-aura = {group = "io.github.pearwhite-mb", name = "aura", version = "0.1.0"}
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle-api", version.ref = "agp" }
