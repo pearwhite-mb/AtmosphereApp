@@ -39,25 +39,27 @@ include(":core:common")
 include(":core:designsystem")
 include(":core:presentation")
 include(":core:notifications")
-include(":feature:profile")
 include(":core:navigation")
+include(":core:domain")
+include(":core:testing")
 
 include(":feature:onboarding:api")
+
 include(":feature:onboarding:impl")
-
 include(":feature:home:api")
+
 include(":feature:home:impl")
-
 include(":feature:calendar:api")
+
 include(":feature:calendar:impl")
-
 include(":feature:profile:api")
+
 include(":feature:profile:impl")
-
 include(":feature:settings:api")
-include(":feature:settings:impl")
 
+include(":feature:settings:impl")
 include(":feature:yearlystats:api")
+
 include(":feature:yearlystats:impl")
 
 check(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)) {

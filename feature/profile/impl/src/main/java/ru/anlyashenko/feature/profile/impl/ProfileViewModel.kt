@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ru.anlyashenko.core.common.util.ProfileStatsCalculator
 import ru.anlyashenko.core.data.repository.DiaryRepository
 import ru.anlyashenko.core.data.repository.SettingsRepository
 import ru.anlyashenko.core.designsystem.R
@@ -51,17 +52,14 @@ class ProfileViewModel @Inject constructor(
 
             }.collect { (records, availableMoods) ->
                 val total = records.count { it.hasMood }
-
                 val sortedDates = records.map { it.date }.sortedDescending()
-                val (currentStreak, longestStreak) = calculateStreaks(sortedDates)
+
+                val (currentStreak, longestStreak) = ProfileStatsCalculator.calculateStreaks(sortedDates)
 
                 val moodCounts = calculateMoodCounts(records, availableMoods)
                 val hasEnoughMoodData = moodCounts.sumOf { it.count } >= 3
 
-                val currentYear = LocalDate.now().year
-                val entriesThisYear = records.count { it.date.year == currentYear }
-                val daysInYear = if (LocalDate.now().isLeapYear) 366 else 365
-                val yearlyProgress = ((entriesThisYear.toFloat() / daysInYear) * 100).toInt()
+                val yearlyProgress = ProfileStatsCalculator.calculateYearlyProgress(sortedDates)
 
                 val (chartData, chartInsight) = calculateChartData(records, availableMoods)
 
@@ -101,38 +99,6 @@ class ProfileViewModel @Inject constructor(
                     color = mood.color,
                 )
             }
-    }
-
-    private fun calculateStreaks(datesDescending: List<LocalDate>): Pair<Int, Int> {
-        if (datesDescending.isEmpty()) return Pair(0, 0)
-
-        var currentStreak = 0
-        var longestStreak = 0
-        var tempStreak = 1
-
-        val today = LocalDate.now()
-        val yesterday = today.minusDays(1)
-
-        var isActiveStreak =
-            datesDescending.first() == today || datesDescending.first() == yesterday
-        if (isActiveStreak) currentStreak = 1
-
-        for (i in 0 until datesDescending.size - 1) {
-            val current = datesDescending[i]
-            val next = datesDescending[i + 1]
-
-            if (current.minusDays(1) == next) {
-                tempStreak++
-                if (isActiveStreak) currentStreak = tempStreak
-            } else if (current != next) {
-                if (tempStreak > longestStreak) longestStreak = tempStreak
-                tempStreak = 1
-                isActiveStreak = false
-            }
-        }
-        if (tempStreak > longestStreak) longestStreak = tempStreak
-
-        return Pair(currentStreak, longestStreak)
     }
 
     private fun calculateChartData(

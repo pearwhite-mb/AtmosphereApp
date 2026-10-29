@@ -69,7 +69,7 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
             excludes.add("/okhttp3/internal/publicsuffix/NOTICE")
             excludes.add("/kotlin/**")
-            excludes.add("/META-INF/androidx.*.version")
+//            excludes.add("/META-INF/androidx.*.version")
             excludes.add("/META-INF/com.google.*.version")
             excludes.add("/META-INF/kotlinx_*.version")
         }
@@ -113,6 +113,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.converter)
 
     ksp(libs.hilt.compiler)
+
+    debugImplementation(libs.leakcanary.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

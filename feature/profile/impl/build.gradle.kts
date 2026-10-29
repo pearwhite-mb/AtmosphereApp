@@ -15,8 +15,8 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.presentation)
 
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(projects.core.testing)
+
+    androidTestImplementation(projects.core.testing)
 
 }
